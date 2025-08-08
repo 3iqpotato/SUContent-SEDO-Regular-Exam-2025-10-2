@@ -1,13 +1,14 @@
 pipeline {
     agent any
 
+    triggers {
+        pollSCM('H/1 * * * *') // проверка на всеки 1 минута
+    }
+
     stages {
-        stage('Setup .NET SDK') {
+        stage('Check .NET SDK') {
             steps {
-                bat 'dotnet --version || true'
-                bat 'wget https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.412-linux-x64-binaries -O dotnet.tar.gz'
-                bat 'mkdir -p $HOME/dotnet && tar zxf dotnet.tar.gz -C $HOME/dotnet'
-                bat 'export PATH=$HOME/dotnet:$PATH'
+                bat 'dotnet --version'
             }
         }
 
