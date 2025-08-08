@@ -12,6 +12,12 @@ pipeline {
             }
         }
 
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Restore') {
             steps {
                 bat 'dotnet restore'
